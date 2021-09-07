@@ -1,0 +1,15 @@
+html{
+    box-sizing: border-box;
+}
+.card{
+    width:30%;
+    margin-top:10px;
+}
+.preview>.card{
+    width:70%;
+}
+.wrapper{
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: space-between;
+}
