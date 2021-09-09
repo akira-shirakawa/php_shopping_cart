@@ -28,11 +28,21 @@ $('#js-edit-amount').submit(function(){
     }
 }),
 $('.js-delete-target').click(function(){
-    if(confirm('本当に消去しますか？')){
-        id= $(this).attr('class');
-        id = parseInt(id);
-        $('.input-js-delete-target').val(id);
-        $('.form-js-delete-target').submit();
-    }
-   
+
+    id= $(this).attr('class');
+    id = parseInt(id);
+    strId = String(id);
+    $('#delete-modal').addClass(strId);
+    $('#delete-modal').addClass('is-active'); 
+}),
+$('#yes').click(function(){
+    id = $('#delete-modal').attr('class');
+    id = id.replace(/[^0-9]/g, '');
+    console.log(id);
+    $('.input-js-delete-target').val(id);
+   $('.form-js-delete-target').submit();
+    
+}),
+$('#no').click(function(){
+    $('#delete-modal').removeClass('is-active');
 })

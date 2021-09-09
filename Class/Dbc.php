@@ -72,7 +72,7 @@ Class Db{
         $sql = "delete from ".$this->table_name." where id = ?";
         $stmt = $this->dbc()->prepare($sql);
         $stmt->execute([$id]);
-        return;
+       
     }
     
     

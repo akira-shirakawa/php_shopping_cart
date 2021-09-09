@@ -16,6 +16,17 @@ $result = $item->getMessage();
     <title>Document</title>
 </head> 
 <body>
+<div class="modal" id="delete-modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="notification has-text-centered">
+        本当に削除しますか？</br>
+        <button id="yes" class="button is-danger">はい</button>
+        <button id="no" class="button" >いいえ</button>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
 <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
     <a class="navbar-item" href="index.php">
     <i class="fas fa-home"></i></a>
@@ -82,7 +93,7 @@ $result = $item->getMessage();
                     <p class="is-size-4" id="js-text1-target">商品名</p>
                     <p id="js-text2-target">こちらは商品の説明ランニなります</p>
                     <p class="has-text-centered has-text-danger" id="js-number1-target">1800</p>
-                    <button class="button is-success is-full-width has-text-centered">Add to cart</button>
+                    <button class="button is-success is-fullwidth has-text-centered">Add to cart</button>
                 </div>
             </div>
         </div>

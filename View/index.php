@@ -19,6 +19,17 @@ $sum =0 ;
     <title>Document</title>
 </head> 
 <body>
+<div class="modal" id="delete-modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="notification has-text-centered">
+        本当に削除しますか？</br>
+        <button id="yes" class="button is-danger">はい</button>
+        <button id="no" class="button" >いいえ</button>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
 <div class="modal" id="edit-modal">
   <div class="modal-background"></div>
   <div class="modal-content">
@@ -55,7 +66,7 @@ $sum =0 ;
                         <p class="is-size-4"><?php echo $value['name'] ?></p>
                         <p><?php echo $value['caption'] ?></p>
                         <p class="has-text-centered has-text-danger"><?php echo $value['price'] ?>円</p>
-                        <button class="<?php echo $value['id'] ?> button is-success is-full-width has-text-centered js-add-target">add to cart<i class="fas fa-shopping-cart"></i></button>
+                        <button class="<?php echo $value['id'] ?> button is-success is-fullwidth has-text-centered js-add-target">add to cart<i class="fas fa-shopping-cart"></i></button>
                         
                     </div>
                 </div>
