@@ -113,7 +113,7 @@ if($triger){
                 <tr>
                     <td><?php echo $value['comment']  ?></td>
                     <td><?php echo count($sale->getData($value['id'],'cart_id'))  ?></td>
-                    <td><?php echo $sale->sumSales($value['id'])  ?></td>
+                    <td><?php echo '¥'.number_format($sale->sumSales($value['id']))  ?></td>
                     <td><?php echo $value['created_at']  ?></td>
                     
                     <td><?php echo $value['updated_at']  ?></td>
