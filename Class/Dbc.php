@@ -4,8 +4,10 @@ require_once dirname(__FILE__).'/../env.php';
 
 Class Db{
     protected $table_name;
+    protected $pdo;
     function __construct($table_name){
         $this->table_name = $table_name;
+        $this->pdo = $this->dbc();
     }
     public function dbc(){
 
@@ -24,26 +26,46 @@ Class Db{
     }
     public function getMessage(){
         $sql = "select * from ".$this->table_name;
-        $stmt = $this->dbc()->query($sql);
+        $stmt = $this->pdo->query($sql);
         $result = $stmt->fetchall(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public function getSales(){
+        $sql = "select * from ".$this->table_name." where cart_id is null";
+        $stmt = $this->pdo->query($sql);
+        $result = $stmt->fetchall(PDO::FETCH_ASSOC); 
         return $result;
     }
     public function show($id){
         $sql = "select * from ".$this->table_name." where id=?";
         $arr=[];
         $arr[]=$id;
-        $stmt = $this->dbc()->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute($arr);   
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     
     }
+    public function cartIdNull($id){
+        $sql ="select * from ".$this->table_name." where item_id=? and cart_id is null";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id]);
+        $result = $stmt->fetchall(PDO::FETCH_ASSOC);
+        return $result; 
+    }
    public function getData($id,$column){
         $sql = "select * from ".$this->table_name." where $column =?"; 
-        $stmt = $this->dbc()->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id]);
         $result = $stmt->fetchall(PDO::FETCH_ASSOC);
         return $result;    
+   }
+   public function getFirstIdNew(){
+        $sql = "select id from ".$this->table_name." order by id desc limit 1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();   
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
    }
     public function create($array){
         $colum_name ='(';
@@ -63,17 +85,50 @@ Class Db{
         $str = $colum_name.'values'.$str;
         $sql = "insert into $this->table_name".$str;
         var_dump($array);
-        $stmt = $this->dbc()->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         var_dump($value);
         $result = $stmt->execute($value);
         return $result;       
     }
     public function delete($id){
         $sql = "delete from ".$this->table_name." where id = ?";
-        $stmt = $this->dbc()->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id]);
        
     }
-    
-    
+    public function sumSales($id){
+        $sql = "SELECT cart_id ,sum(amount * price) FROM `sales` inner join carts on carts.id = sales.cart_id inner join items on items.id = sales.item_id where cart_id = $id group by cart_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+       
+        return $result['sum(amount * price)'];
+    }
+    public function selectCarts($get){
+        $comment = $get['comment'];
+        $created_at_from = $get['created_at_from'];
+        $created_at_to = $get['created_at_to'];
+        $updated_at_from = $get['updated_at_from'];
+        $updated_at_to = $get['updated_at_to'];
+        $count_from = $get['count_from'];
+        $count_to = $get['count_to'];
+        $sum_from = $get['sum_from'];
+        $sum_to = $get['sum_to'];
+
+        $sql = "select * from carts where 1 = 1 ";
+
+        if($comment) $sql.="and comment like '%$comment%'";
+        if($created_at_from) $sql.="and created_at >= '$created_at_from'";
+        if($created_at_to) $sql.="and created_at <= '$created_at_to'";
+        if($updated_at_from) $sql.="and updated_at >= '$updated_at_from'";
+        if($updated_at_to) $sql.="and updated_at <= '$updated_at_to'";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchall(PDO::FETCH_ASSOC);
+        return $result;
+
+
+
+    }
 }

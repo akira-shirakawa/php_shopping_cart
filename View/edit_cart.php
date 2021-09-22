@@ -1,10 +1,11 @@
 <?php
 ini_set('display_errors', 1);
 require_once '../Class/Dbc.php';
+$id = $_GET['id'];
 $item = new Db('items');
 $sale= new Db('sales');
 $result = $item->getMessage();
-$result2 = $sale->getSales();
+$result2 = $sale->getData($id,'cart_id');
 $sum =0 ;
 ?>
 <!DOCTYPE html>
@@ -35,10 +36,11 @@ $sum =0 ;
   <div class="modal-content">
     <div class="box">
 
-        <form action="../Main/Sale/edit_sale.php" method="post" id="js-edit-amount">
+        <form action="../Main/Cart/edit_cart.php" method="post" id="js-edit-amount">
             <p class="is-size-3">個数を変更</p>
             <input type="number" value="" class="input js-sale-edit-target" name="amount" required>
             <input type="hidden" name="item_id" class="js-item_id" value="">
+            <input type="hidden" name="page_id" value="<?php echo $id ?>">
             <input type="submit" value="送信" class="button">
         </form>
     </div>
@@ -61,17 +63,14 @@ $sum =0 ;
   <button class="modal-close is-large" aria-label="close"></button>
 </div>
 <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-    <a class="navbar-item" href="item.php">
-       商品登録・編集・削除
-    </a>
-    <a class="navbar-item" href="cart.php">
-       カート一覧・編集・削除
+    <a class="navbar-item" href="index.php">
+    <i class="fas fa-home"></i></a>
     </a>
 </nav>
 <div class="columns">
     <div class="column"></div>
     <div class="column is-half">
-    <p class="is-size-3 has-text-centered">商品一覧</p>
+    <p class="is-size-3 has-text-centered">カート編集</p>
         <div class="wrapper">           
             <?php foreach ($result as $value) :?>
                 <div class="card">
@@ -102,15 +101,17 @@ $sum =0 ;
                 <?php $sum+=$value['amount']*$item->show($value['item_id'])['price'] ?>
             </tr>
             <?php endforeach; ?>
-            <tr><td></td><td></td><td>カート合計</td><td><?php echo '¥'.number_format($sum) ?></td><td><button class="button js-cart-target-button">カートを登録する</button></td></tr>
+            <tr><td></td><td></td><td>カート合計</td><td><?php echo '¥'.number_format($sum) ?></td><td></td></tr>
         </table>
     </div>
     <div class="column"></div>
     <form action="../Main/Sale/create_sale.php" method="post" id="item">
         <input type="hidden" name="item_id" value="" id="item_id">
+        <input type="hidden" name="page_id" value="<?php echo $id ?>">
     </form>
     <form action="../Main/Sale/delete_sale.php" method="post" class="form-js-delete-target">
-        <input type="hidden" name="item_id" class="input-js-delete-target" value="" >
+        <input type="hidden" name="item_ide" class="input-js-delete-target" value="" >
+        <input type="hidden" name="page" value="<?php echo $id ?>">
     </form>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
