@@ -48,4 +48,9 @@ $('#no').click(function(){
 }),
 $('.js-cart-target-button').click(function(){
     $('#cart-modal').addClass('is-active');
-})
+}),
+
+console.log($("tr").length);
+if($('tr').length > 2){
+    $('.js-cart-target-button').removeClass('is-hidden');
+}

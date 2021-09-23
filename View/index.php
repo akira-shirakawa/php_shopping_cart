@@ -1,6 +1,9 @@
 <?php
 ini_set('display_errors', 1);
 require_once '../Class/Dbc.php';
+session_start();
+$is_success = $_SESSION['is_success'] ?? '';
+$_SESSION = array();
 $item = new Db('items');
 $sale= new Db('sales');
 $result = $item->getMessage();
@@ -71,6 +74,11 @@ $sum =0 ;
 <div class="columns">
     <div class="column"></div>
     <div class="column is-half">
+        <?php if($is_success): ?>
+        <div class="notification">
+            <?php echo $is_success ?>
+        </div>
+        <?php endif ; ?>
     <p class="is-size-3 has-text-centered">商品一覧</p>
         <div class="wrapper">           
             <?php foreach ($result as $value) :?>
@@ -102,7 +110,7 @@ $sum =0 ;
                 <?php $sum+=$value['amount']*$item->show($value['item_id'])['price'] ?>
             </tr>
             <?php endforeach; ?>
-            <tr><td></td><td></td><td>カート合計</td><td><?php echo '¥'.number_format($sum) ?></td><td><button class="button js-cart-target-button">カートを登録する</button></td></tr>
+            <tr><td></td><td></td><td>カート合計</td><td><?php echo '¥'.number_format($sum) ?></td><td><button class="button js-cart-target-button is-hidden">カートを登録する</button></td></tr>
         </table>
     </div>
     <div class="column"></div>

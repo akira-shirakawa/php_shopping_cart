@@ -65,7 +65,7 @@ if($triger){
                     <div class="columns">
                         <div class="column">
                             <p>comment</p>
-                            <input type="text" name="comment" class="input" value="<?php echo $_SESSION['comment'] ?>">
+                            <input type="text" name="comment" class="input" value="<?php echo $_SESSION['comment'] ?? '' ?>">
                             
                             
                             <div class="columns">
@@ -88,15 +88,15 @@ if($triger){
                             <div class="columns">
                                 <div class="column">
                                         <p>集計数(from)</p>
-                                    <input type="number" name="count_from" class="input" value="<?php echo $_SESSION['count_from'] ?>">
+                                    <input type="number" name="count_from" class="input" value="<?php echo $_SESSION['count_from'] ?? '' ?>">
                                         <p>集計結果(from)</p>
-                                    <input type="number" name="sum_from" class="input" value="<?php echo $_SESSION['sum_from'] ?>">
+                                    <input type="number" name="sum_from" class="input" value="<?php echo $_SESSION['sum_from'] ?? '' ?>">
                                 </div>
                                 <div class="column">
                                     <p>集計数(to)</p>
-                                        <input type="number" name="count_to" class="input" value="<?php echo $_SESSION['count_to'] ?>">
+                                        <input type="number" name="count_to" class="input" value="<?php echo $_SESSION['count_to'] ?? '' ?>">
                                     <p>集計結果(to)</p>
-                                        <input type="number" name="sum_to" class="input" value="<?php echo $_SESSION['sum_to'] ?>">
+                                        <input type="number" name="sum_to" class="input" value="<?php echo $_SESSION['sum_to'] ?? '' ?>">
                                         <input type="submit" class="button" value="検索">
                                 </div>
                             </div>

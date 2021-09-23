@@ -102,7 +102,7 @@ Class Db{
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
        
-        return $result['sum(amount * price)'];
+        return $result['sum(amount * price)'] ?? '';
     }
     public function selectCarts($get){
         $comment = $get['comment'];

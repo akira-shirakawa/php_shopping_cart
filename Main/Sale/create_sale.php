@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 require_once '../../Class/Dbc.php';
 $sale = new Db('sales');
 
-if($_POST['page_id']){
+if($_POST['page_id'] ?? false){
     $sql = "select * from sales where item_id = ".$_POST['item_id']." and cart_id = ".$_POST['page_id'];
     $stmt = $sale->dbc()->prepare($sql);
     $stmt->execute();
