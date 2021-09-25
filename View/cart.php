@@ -4,12 +4,9 @@ require_once '../Class/Dbc.php';
 session_start();
 $cart = new Db('carts');
 $sale = new Db('sales');
-$result = $cart->getMessage();
+
 $triger = $_GET ?? '';
-$min =   -10000000;
-$max =   1111111111;
-$count_min = -100000;
-$count_max =  10000000;
+$result = $cart->selectCarts($_GET);
 if($triger){
     $selected_result = $cart->selectCarts($_GET);
     $_SESSION['comment'] = $_GET['comment'];
@@ -21,10 +18,6 @@ if($triger){
     $_SESSION['count_to'] = $_GET['count_to'];
     $_SESSION['sum_from'] = $_GET['sum_from'];
     $_SESSION['sum_to'] = $_GET['sum_to'];
-    $min = $_GET['sum_from'] ?: -10000000;
-    $max = $_GET['sum_to'] ?:10000202;
-    $count_min = $_GET['count_from'] ?: -10000000;
-    $count_max = $_GET['count_to'] ?:10000202;
 }
 ?>
 <!DOCTYPE html>
@@ -54,6 +47,7 @@ if($triger){
     <a class="navbar-item" href="index.php">
     <i class="fas fa-home"></i></a>
     </a>
+   
 </nav>
 <div class="columns">
     <div class="column"></div>
@@ -109,20 +103,17 @@ if($triger){
         <table class="table is-fullwidth">
                 <tr><th>コメント</th><th>集計数</th><th>集計結果</th><th>作成日時</th><th>更新日時</th><th></th></tr>
                 <?php foreach($selected_result ?? $result as $value) :?>
-                    <?php if ($min < $sale->sumSales($value['id']) && $max > $sale->sumSales($value['id']) && $count_min <count($sale->getData($value['id'],'cart_id')) && $count_max > count($sale->getData($value['id'],'cart_id'))) :?>
+                   
                 <tr>
                     <td><?php echo $value['comment']  ?></td>
-                    <td><?php echo count($sale->getData($value['id'],'cart_id'))  ?></td>
-                    <td><?php echo '¥'.number_format($sale->sumSales($value['id']))  ?></td>
-                    <td><?php echo $value['created_at']  ?></td>
-                    
+                    <td><?php echo $value['count(cart_id)']  ?></td>
+                    <td><?php echo '¥'.number_format($value['sum(amount * price)'])  ?></td>
+                    <td><?php echo $value['created_at']  ?></td>                    
                     <td><?php echo $value['updated_at']  ?></td>
-                    <td><button class="<?php echo $value['id'] ?> button is-danger js-delete-target">delete</button>
-                   <a href="edit_cart.php?id=<?php echo $value['id'] ?>" class="button is-info">update</a></td>
-                   
-                    
+                    <td><button class="<?php echo $value['cart_id'] ?> button is-danger js-delete-target">delete</button>
+                   <a href="edit_cart.php?id=<?php echo $value['cart_id'] ?>" class="button is-info">update</a></td>                    
                 </tr>
-                <?php endif;?>
+                
                 <?php endforeach; ?>
                 
             </table>

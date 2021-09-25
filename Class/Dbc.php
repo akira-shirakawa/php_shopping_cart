@@ -105,23 +105,28 @@ Class Db{
         return $result['sum(amount * price)'] ?? '';
     }
     public function selectCarts($get){
-        $comment = $get['comment'];
-        $created_at_from = $get['created_at_from'];
-        $created_at_to = $get['created_at_to'];
-        $updated_at_from = $get['updated_at_from'];
-        $updated_at_to = $get['updated_at_to'];
-        $count_from = $get['count_from'];
-        $count_to = $get['count_to'];
-        $sum_from = $get['sum_from'];
-        $sum_to = $get['sum_to'];
+        $comment = $get['comment'] ?? '';
+        $created_at_from = $get['created_at_from'] ?? '';
+        $created_at_to = $get['created_at_to'] ?? '';
+        $updated_at_from = $get['updated_at_from'] ?? '';
+        $updated_at_to = $get['updated_at_to'] ?? '';
+        $count_from = $get['count_from'] ?? '';
+        $count_to = $get['count_to'] ?? '';
+        $sum_from = $get['sum_from'] ?? '';
+        $sum_to = $get['sum_to'] ?? '';
 
-        $sql = "select * from carts where 1 = 1 ";
+        $sql = "SELECT created_at,updated_at,comment,cart_id ,count(cart_id),sum(amount * price) FROM `sales` inner join carts on carts.id = sales.cart_id inner join items on items.id = sales.item_id group by cart_id,comment,created_at,updated_at having 1 = 1";
 
-        if($comment) $sql.="and comment like '%$comment%'";
-        if($created_at_from) $sql.="and created_at >= '$created_at_from'";
-        if($created_at_to) $sql.="and created_at <= '$created_at_to'";
-        if($updated_at_from) $sql.="and updated_at >= '$updated_at_from'";
-        if($updated_at_to) $sql.="and updated_at <= '$updated_at_to'";
+        if($comment) $sql.=" and comment like '%$comment%'";
+        if($created_at_from) $sql.=" and created_at >= '$created_at_from'";
+        if($created_at_to) $sql.=" and created_at <= '$created_at_to'";
+        if($updated_at_from) $sql.=" and updated_at >= '$updated_at_from'";
+        if($updated_at_to) $sql.=" and updated_at <= '$updated_at_to'";
+        if($count_from) $sql.=" and count(cart_id) >= $count_from";
+        if($count_to) $sql.=" and count(cart_id) <= $count_to";
+        if($sum_from) $sql.=" and sum(amount * price) >= $sum_from";
+        if($sum_to) $sql.=" and sum(amount * price) <= $sum_to ";
+
         
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();

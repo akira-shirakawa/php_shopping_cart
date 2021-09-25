@@ -66,6 +66,9 @@ $sum =0 ;
     <a class="navbar-item" href="index.php">
     <i class="fas fa-home"></i></a>
     </a>
+    <a class="navbar-item" href="cart.php">
+       カート一覧・編集・削除
+    </a>
 </nav>
 <div class="columns">
     <div class="column"></div>
