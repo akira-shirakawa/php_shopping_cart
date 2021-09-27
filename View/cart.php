@@ -106,12 +106,12 @@ if($triger){
                    
                 <tr>
                     <td><?php echo $value['comment']  ?></td>
-                    <td><?php echo $value['count(cart_id)']  ?></td>
-                    <td><?php echo '¥'.number_format($value['sum(amount * price)'])  ?></td>
+                    <td><?php echo $value['count'] ?? 0  ?></td>
+                    <td><?php echo '¥'.number_format($value['sum'])  ?></td>
                     <td><?php echo $value['created_at']  ?></td>                    
                     <td><?php echo $value['updated_at']  ?></td>
-                    <td><button class="<?php echo $value['cart_id'] ?> button is-danger js-delete-target">delete</button>
-                   <a href="edit_cart.php?id=<?php echo $value['cart_id'] ?>" class="button is-info">update</a></td>                    
+                    <td><button class="<?php echo $value['cart_id'] ?? $value['id'] ?> button is-danger js-delete-target">delete</button>
+                   <a href="edit_cart.php?id=<?php echo $value['cart_id'] ?? $value['id'] ?>" class="button is-info">update</a></td>                    
                 </tr>
                 
                 <?php endforeach; ?>
