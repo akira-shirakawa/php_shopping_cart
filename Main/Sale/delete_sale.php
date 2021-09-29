@@ -7,6 +7,6 @@ if($_POST['item_id']){
     return;
 }else{
     $sale->delete($_POST['item_ide']);
-    header('Location:../../view/edit_cart.php?id='.$_POST['page']);
+    header('Location:../../View/edit_cart.php?id='.$_POST['page']);
     return;
 }
