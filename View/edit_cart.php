@@ -6,8 +6,8 @@ $item = new Db('items');
 $sale= new Db('sales');
 $cart = new Db('carts');
 $result = $item->getMessage();
-$sale_result = $sale->getData($id,'cart_id');
-$cart_result=$cart->show($id);
+$saleResult = $sale->getData($id,'cart_id');
+$cartResult=$cart->show($id);
 $sum =0 ;
 ?>
 <!DOCTYPE html>
@@ -96,7 +96,7 @@ $sum =0 ;
         </div>
         <table class="table is-fullwidth">
             <tr><th>商品名</th><th>数量</th><th>単価</th><th>合計</th><th></th></tr>
-            <?php foreach($sale_result as $value) :?>
+            <?php foreach($saleResult as $value) :?>
             <tr>
                 <td><?php echo $item->show($value['item_id'])['name']  ?></td>
                 <td><?php echo $value['amount']  ?></td>
@@ -111,7 +111,7 @@ $sum =0 ;
             <tr><td></td><td></td><td>コメント</td> <td><input type="submit" class="button" value="送信" required></td>
              <td>
                  
-                     <input type="text" name="comment" class="input" value="<?php echo $cart_result['comment'] ?>">
+                     <input type="text" name="comment" class="input" value="<?php echo $cartResult['comment'] ?>">
                     <input type="hidden" name ="cart_id" value="<?php echo $id ?>">
                 
             </td></tr>

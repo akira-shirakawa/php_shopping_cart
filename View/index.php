@@ -7,7 +7,7 @@ $_SESSION = array();
 $item = new Db('items');
 $sale= new Db('sales');
 $result = $item->getMessage();
-$cart_result = $sale->getSales();
+$cartResult = $sale->getSales();
 $sum =0 ;
 ?>
 <!DOCTYPE html>
@@ -100,7 +100,7 @@ $sum =0 ;
         </div>
         <table class="table is-fullwidth">
             <tr><th>商品名</th><th>数量</th><th>単価</th><th>合計</th><th></th></tr>
-            <?php foreach($cart_result as $value) :?>
+            <?php foreach($cartResult as $value) :?>
             <tr>
                 <td><?php echo $item->show($value['item_id'])['name']  ?></td>
                 <td><?php echo $value['amount']  ?></td>
