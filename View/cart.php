@@ -65,15 +65,15 @@ if($triger){
                             <div class="columns">
                                 <div class="column">
                                     <p>作成日で絞り込み　</p>
-                                <input type="datetime-local" name="created_at_from">
+                                <input type="datetime-local" name="created_at_from" value ="<?php echo $_SESSION['created_at_from'] ?? '' ?>">
                                 <p>更新日時で絞り込み</p>
-                                <input type="datetime-local" name="updated_at_from">
+                                <input type="datetime-local" name="updated_at_from" value ="<?php echo $_SESSION['updated_at_from'] ?? '' ?>">
                                 </div>
                                 <div class="column">
                                     <p>to</p>
-                                <input type="datetime-local" name="created_at_to">
+                                <input type="datetime-local" name="created_at_to" value ="<?php echo $_SESSION['created_at_to'] ?? '' ?>">
                                     <p>to</p>
-                                <input type="datetime-local" name="updated_at_to">
+                                <input type="datetime-local" name="updated_at_to" value ="<?php echo $_SESSION['updated_at_to'] ?? '' ?>">
                                 </div>
                             </div>
                         </div>
