@@ -96,13 +96,13 @@ Class Db{
         $stmt->execute([$id]);
        
     }
-    public function sumSales($id){
-        $sql = "SELECT cart_id ,sum(amount * price) FROM `sales` inner join carts on carts.id = sales.cart_id inner join items on items.id = sales.item_id where cart_id = $id group by cart_id";
+    public function getOriginalPrice($item_id,$cart_id){
+        $sql = "select price from sales where item_id = ? and cart_id = ?";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
+        $stmt->execute([$item_id,$cart_id]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-       
-        return $result['sum(amount * price)'] ?? '';
+        return $result['price'] ?? '';
+        
     }
     public function selectCarts($get){
         $comment = $get['comment'] ?? '';
@@ -115,13 +115,13 @@ Class Db{
         $sum_from = $get['sum_from'] ?? '';
         $sum_to = $get['sum_to'] ?? '';
 
-        $sql = "SELECT carts.id,carts.comment,carts.created_at,carts.updated_at,inko.sum,inko.count,inko.cart_id FROM carts left join (SELECT created_at,updated_at,comment,cart_id ,count(cart_id) as count,sum(amount * price) as sum FROM `sales` inner join carts on carts.id = sales.cart_id inner join items on items.id = sales.item_id group by cart_id,comment,created_at,updated_at) as inko on carts.id = inko.cart_id where 1 = 1";
+        $sql = "select * from carts where 1=1";
 
-        if($comment) $sql.=" and carts.comment like '%$comment%'";
-        if($created_at_from) $sql.=" and carts.created_at >= '$created_at_from'";
-        if($created_at_to) $sql.=" and carts.created_at <= '$created_at_to'";
-        if($updated_at_from) $sql.=" and carts.updated_at >= '$updated_at_from'";
-        if($updated_at_to) $sql.=" and carts.updated_at <= '$updated_at_to'";
+        if($comment) $sql.=" and comment like '%$comment%'";
+        if($created_at_from) $sql.=" and created_at >= '$created_at_from'";
+        if($created_at_to) $sql.=" and created_at <= '$created_at_to'";
+        if($updated_at_from) $sql.=" and updated_at >= '$updated_at_from'";
+        if($updated_at_to) $sql.=" and updated_at <= '$updated_at_to'";
         if($count_from) $sql.=" and count >= $count_from";
         if($count_to) $sql.=" and count <= $count_to";
         if($sum_from) $sql.=" and sum >= $sum_from";

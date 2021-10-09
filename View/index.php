@@ -70,6 +70,9 @@ $sum =0 ;
     <a class="navbar-item" href="cart.php">
        カート一覧・編集・削除
     </a>
+    <a class="navbar-item" href="log.php">
+       item更新履歴
+    </a>
 </nav>
 <div class="columns">
     <div class="column"></div>

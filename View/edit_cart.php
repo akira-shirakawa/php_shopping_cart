@@ -87,7 +87,7 @@ $sum =0 ;
                     <div class="card-content">
                         <p class="is-size-4"><?php echo $value['name'] ?></p>
                         <p><?php echo $value['caption'] ?></p>
-                        <p class="has-text-centered has-text-danger"><?php echo $value['price'] ?>円</p>
+                        <p class="has-text-centered has-text-danger"><?php echo $sale->getOriginalPrice($value['id'],$id) ?: $value['price'] ?>円</p>
                         <button class="<?php echo $value['id'] ?> button is-success is-fullwidth has-text-centered js-add-target">add to cart<i class="fas fa-shopping-cart"></i></button>
                         
                     </div>
@@ -100,10 +100,10 @@ $sum =0 ;
             <tr>
                 <td><?php echo $item->show($value['item_id'])['name']  ?></td>
                 <td><?php echo $value['amount']  ?></td>
-                <td><?php echo $item->show($value['item_id'])['price'] ?></td>
-                <td><?php echo $value['amount']*$item->show($value['item_id'])['price'] ?></td>
+                <td><?php echo $value['price'] ?></td>
+                <td><?php echo $value['amount']*$value['price'] ?></td>
                 <td><button class="<?php echo $value['id'] ?> button is-success js-edit-target">編集</button><button class="<?php echo $value['id'] ?> button is-danger js-delete-target">消去</button></td>
-                <?php $sum+=$value['amount']*$item->show($value['item_id'])['price'] ?>
+                <?php $sum+=$value['amount']*$value['price'] ?>
             </tr>
             <?php endforeach; ?>
             <tr><td></td><td></td><td>カート合計</td><td><?php echo '¥'.number_format($sum) ?></td><td></td></tr>

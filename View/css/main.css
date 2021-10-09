@@ -13,6 +13,15 @@ html{
 .preview>.card{
     width:70%;
 }
+.created{
+    background:rgb(218, 233, 255);
+}
+.updated{
+    background:rgb(196, 253, 185);
+}
+.deleted{
+    background: rgb(241, 196, 196);
+}
 @media(min-width:769px) and (max-width:1000px){
     .card{
         width:45%;

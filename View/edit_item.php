@@ -35,6 +35,7 @@ $id = $_GET['id'];
                 <p>値段</p>
                 <input type="number" class="input" id="js-number1" name="price" value="<?php echo $item->show($id)['price'] ?>"required>
                 <input type="hidden" name="id" value="<?php echo $item->show($id)['id'] ?>">
+                <input type="hidden" name="price_old" value="<?php echo $item->show($id)['price'] ?>">
                 <div class="file is-boxed">
                     <label class="file-label">
                         <input class="file-input" type="file" name="image" id="file" >
