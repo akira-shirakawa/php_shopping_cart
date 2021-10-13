@@ -33,12 +33,12 @@ if($sale->getData($_POST['item_id'],'item_id')){
         $stmt->execute([$_POST['item_id']]);
     }else{ 
         $item = $item->show($_POST['item_id'])['price'];     
-        $sale->create(['item_id'=>$_POST['item_id'],'amount'=>1,'price'=>$item]);
+        $sale->create(['item_id'=>$_POST['item_id'],'amount'=>1]);
     }
    
 }else{
     $item = $item->show($_POST['item_id'])['price'];
-    $sale->create(['item_id'=>$_POST['item_id'],'amount'=>1,'price'=>$item]);
+    $sale->create(['item_id'=>$_POST['item_id'],'amount'=>1]);
 }
 
 
